@@ -44,4 +44,21 @@ public class FrisbeeController : MonoBehaviour
             transform.Rotate(-Vector3.forward * rotatePower * Time.deltaTime);  //右傾き
         }
     }
+
+    //タグを追加したオブジェクトとの接触時の処理
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Safety")
+        {
+            Debug.Log("何もしない");
+        }
+        else if(collision.gameObject.tag == "Success")
+        {
+            Debug.Log("クリア");
+        }
+        else
+        {
+            Debug.Log("アウト");
+        }
+    }
 }
