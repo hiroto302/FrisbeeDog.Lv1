@@ -12,6 +12,7 @@ public class FrisbeeController : MonoBehaviour
     [SerializeField] ParticleSystem successParticle;  //パーティクルシステムの導入
     [SerializeField] ParticleSystem outParticle;
 
+    bool colDisabled = false;  //衝突禁止の判断  オブジェクトと衝突していない時のみフリスビーを操作できるようにする
 
     void Start()
     {
@@ -20,8 +21,11 @@ public class FrisbeeController : MonoBehaviour
 
     void Update()
     {
-        RiseObjInput();
-        RotaObjInput();
+        if(colDisabled == false)
+        {
+            RiseObjInput();
+            RotaObjInput();
+        }
     }
 
     //フリスビーの上下方向操作
@@ -54,6 +58,10 @@ public class FrisbeeController : MonoBehaviour
     //タグを追加したオブジェクトとの接触時の処理
     void OnCollisionEnter(Collision collision)
     {
+        if(colDisabled == true)  //衝突した時、以下の処理の内容を停止できるようにした
+        {
+            return;
+        }
         if(collision.gameObject.tag == "Safety")
         {
             Debug.Log("何もしない");
@@ -73,11 +81,13 @@ public class FrisbeeController : MonoBehaviour
     //パーティクルシステム実行
     private void SuccessProcessing()
     {
+        colDisabled = true;
         successParticle.Play();
         Invoke("LoadNextStage", 2.0f);  //Invokeメソッド  "メソッド名",時間を引数に与える。指定した時間後にメソッドを実行する
     }
     private void OutProcessing()
     {
+        colDisabled = true;
         outParticle.Play();
         Invoke("LoadActivestage", 2.0f);
     }
