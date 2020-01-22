@@ -7,6 +7,10 @@ public class FrisbeeController : MonoBehaviour
     [SerializeField] float risePower = 50f;  //SerializeFieldとすることでインスペクター上でも変数の値を変更することが出来る
     [SerializeField] float rotatePower = 80f;
     Rigidbody rigidBody;
+
+    [SerializeField] ParticleSystem successParticle;  //パーティクルシステムの導入
+    [SerializeField] ParticleSystem outParticle;
+
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -55,10 +59,24 @@ public class FrisbeeController : MonoBehaviour
         else if(collision.gameObject.tag == "Success")
         {
             Debug.Log("クリア");
+            SuccessProcessing();
         }
         else
         {
             Debug.Log("アウト");
+            OutProcessing();
         }
     }
+
+    //パーティクルシステム実行
+    private void SuccessProcessing()
+    {
+        successParticle.Play();
+    }
+    private void OutProcessing()
+    {
+        outParticle.Play();
+    }
+
+
 }
