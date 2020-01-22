@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FrisbeeController : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class FrisbeeController : MonoBehaviour
 
     [SerializeField] ParticleSystem successParticle;  //パーティクルシステムの導入
     [SerializeField] ParticleSystem outParticle;
+
 
     void Start()
     {
@@ -72,11 +74,31 @@ public class FrisbeeController : MonoBehaviour
     private void SuccessProcessing()
     {
         successParticle.Play();
+        Invoke("LoadNextStage", 2.0f);  //Invokeメソッド  "メソッド名",時間を引数に与える。指定した時間後にメソッドを実行する
     }
     private void OutProcessing()
     {
         outParticle.Play();
+        Invoke("LoadActivestage", 2.0f);
     }
 
+    private void LoadNextStage()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;  //現在のシーンのインデックスを取得
+        int nextSceneIndex = currentSceneIndex + 1;  //取得したシーンのインデックス数に1を加えて、nextSceneIndexに代入
+
+        if(nextSceneIndex == SceneManager.sceneCountInBuildSettings)
+        {
+            nextSceneIndex = 0;
+        }
+
+        SceneManager.LoadScene(nextSceneIndex);
+    }
+
+    private void LoadActiveStage()
+    {
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().name);  //現在のシーンを再読み込み出来る
+    }
 
 }
