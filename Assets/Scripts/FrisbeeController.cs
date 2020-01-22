@@ -12,11 +12,18 @@ public class FrisbeeController : MonoBehaviour
     [SerializeField] ParticleSystem successParticle;  //パーティクルシステムの導入
     [SerializeField] ParticleSystem outParticle;
 
+    [SerializeField] AudioClip frisbeeMusic;
+    [SerializeField] AudioClip successMusic;
+    [SerializeField] AudioClip outMusic;
+    AudioSource audioSource;
+
+
     bool colDisabled = false;  //衝突禁止の判断  オブジェクトと衝突していない時のみフリスビーを操作できるようにする
 
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -35,10 +42,14 @@ public class FrisbeeController : MonoBehaviour
         if(Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow))
         {
             rigidBody.AddRelativeForce(Vector3.up * risePower);
+            audioSource.Stop();
+            audioSource.PlayOneShot(frisbeeMusic);  //音が重なって再生されないように、上記で一度停止してから再生するようにしている
         }
         if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
             rigidBody.AddRelativeForce(Vector3.down * risePower);
+            audioSource.Stop();
+            audioSource.PlayOneShot(frisbeeMusic);
         }
     }
 
@@ -82,12 +93,16 @@ public class FrisbeeController : MonoBehaviour
     private void SuccessProcessing()
     {
         colDisabled = true;
+        audioSource.Stop();
+        audioSource.PlayOneShot(successMusic);
         successParticle.Play();
         Invoke("LoadNextStage", 2.0f);  //Invokeメソッド  "メソッド名",時間を引数に与える。指定した時間後にメソッドを実行する
     }
     private void OutProcessing()
     {
         colDisabled = true;
+        audioSource.Stop();
+        audioSource.PlayOneShot(outMusic);
         outParticle.Play();
         Invoke("LoadActivestage", 2.0f);
     }
