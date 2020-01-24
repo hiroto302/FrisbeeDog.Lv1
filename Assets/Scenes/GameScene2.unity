@@ -132,6 +132,12 @@ Light:
     type: 3}
   m_PrefabInstance: {fileID: 8887390104787172452}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &816499452 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9134722771848832389, guid: 8f20ebb70f36049068b47b9c69872490,
+    type: 3}
+  m_PrefabInstance: {fileID: 9134722773675009094}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &963194225 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 475160803540894649, guid: 543ad8f85cadd4d9c8edeff45f37ed37,
@@ -150,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0380d37a01ff4fc296f56ff250bee09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frisbee: {fileID: 0}
+  frisbee: {fileID: 816499452}
 --- !u!1 &1123774013
 GameObject:
   m_ObjectHideFlags: 0

@@ -104,7 +104,7 @@ public class FrisbeeController : MonoBehaviour
         audioSource.Stop();
         audioSource.PlayOneShot(outMusic);
         outParticle.Play();
-        Invoke("LoadActivestage", 2.0f);
+        Invoke("LoadActiveStage", 2f);
     }
 
     private void LoadNextStage()
@@ -120,10 +120,10 @@ public class FrisbeeController : MonoBehaviour
         SceneManager.LoadScene(nextSceneIndex);
     }
 
+    // //現在のシーンの再読み込み
     private void LoadActiveStage()
     {
         SceneManager.LoadScene(
-            SceneManager.GetActiveScene().name);  //現在のシーンを再読み込み出来る
+            SceneManager.GetActiveScene().name);
     }
-
 }
